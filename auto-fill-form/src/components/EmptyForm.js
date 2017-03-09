@@ -37,13 +37,13 @@ class EmptyForm extends Component {
     render() {
         return (
             <div className="App">
-                <label>First name: {this.props.firstname}</label>
+                <label>First name:</label>
                 <Input type="text" value={this.props.firstname} disabled={this.props.disabled} name="firstname"/>
                 <br/>
                 <label>Last name:</label>
                 <Input type="text" value={this.props.lastname} disabled={this.props.disabled} name="lastname"/>
                 <br/>
-                <button onClick={this.props.onClick}>Next/Previous</button>
+                <button onClick={this.props.onClick} disabled={this.props.disabled}>Fill</button>
             </div>
         );
     }
