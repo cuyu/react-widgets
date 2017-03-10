@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import EmptyForm from './containers/EmptyFormWrapper'
+import EmptyForm from './containers/EmptyForm'
 import AutoFillForm from './containers/AutoFillForm'
 import './index.css';
 import {Provider} from 'react-redux'
@@ -17,7 +17,7 @@ ReactDOM.render((
 export function renderFilledForm() {
     ReactDOM.render((
             <Provider store={store}>
-                <AutoFillForm/>
+                <AutoFillForm disabled={true}/>
             </Provider>),
         document.getElementById('filledForm')
     );
