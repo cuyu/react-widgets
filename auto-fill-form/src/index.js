@@ -10,7 +10,7 @@ ReactDOM.render((
         <Provider store={store}>
             <EmptyForm/>
         </Provider>),
-    document.getElementById('root')
+    document.getElementById('emptyForm')
 );
 
 
