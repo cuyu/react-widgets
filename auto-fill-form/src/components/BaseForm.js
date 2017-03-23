@@ -1,23 +1,23 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import EmptyInput from '../containers/EmptyInput'
+import {renderFilledForm} from '../index'
 
 
 class BaseForm extends Component {
-    static propTypes = {
-        onClick: PropTypes.func.isRequired,
-    };
+    handleClick() {
+        renderFilledForm();
+    }
 
     render() {
         return (
             <div className="App">
                 <label>First name:</label>
-                <input type="text" disabled={this.props.disabled} value={this.props.firstname}
-                       onChange={this.props.handleFirstnameChange} name="firstname"/>
+                <EmptyInput disabled={this.props.disabled} id="firstname"/>
                 <br/>
                 <label>Last name:</label>
-                <input type="text" disabled={this.props.disabled} value={this.props.lastname}
-                       onChange={this.props.handleLastnameChange} name="lastname"/>
+                <EmptyInput disabled={this.props.disabled} id="lastname"/>
                 <br/>
-                <button onClick={this.props.onClick} disabled={this.props.disabled}>Fill</button>
+                <button onClick={this.handleClick} disabled={this.props.disabled}>Fill</button>
             </div>
         );
     }

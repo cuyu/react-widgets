@@ -3,13 +3,16 @@
  */
 
 import {createStore, combineReducers} from 'redux'
-import formReducer from './reducers/form-reducer'
+import generateInputReducer from './reducers/input-reducer'
 
-let reducer = combineReducers({value: formReducer});
+let rootReducer = combineReducers({
+    firstname: generateInputReducer('firstname'),
+    lastname: generateInputReducer('lastname'),
+});
+
 const store = createStore(
-    reducer, /* preloadedState, */
+    rootReducer, /* preloadedState, */
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
-// let store = createStore(reducer);
 
 export {store}
