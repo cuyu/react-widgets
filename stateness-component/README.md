@@ -1,0 +1,1 @@
+An example of React component with state (Redux store) binding
