@@ -1,6 +1,6 @@
 ## react-widgets
 
-A collection of small react applications which may be used commonly.
+A collection of small react applications which may be used commonly or FUN.
 
 ### Demo
 

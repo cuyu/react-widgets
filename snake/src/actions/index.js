@@ -9,3 +9,11 @@ export const resetMatrix = function (height, width) {
         width: width
     };
 };
+
+export const changeCell = function (id, value) {
+    return {
+        type: 'CHANGE',
+        id: id,
+        value: value
+    }
+};

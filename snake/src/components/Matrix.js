@@ -1,12 +1,17 @@
 /**
  * Created by cuyu on 3/31/17.
  */
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 import CellWrapper from '../containers/CellWrapper'
 import './Matrix.css'
 
 
 class Matrix extends Component {
+    static propTypes = {
+        handleReset: PropTypes.func.isRequired,
+        handleKeyPress: PropTypes.func.isRequired,
+    };
+
     render() {
         // The Matrix should only be rendered once while some Cells may be rendered later.
         console.log('Matrix rendered.');
@@ -26,7 +31,7 @@ class Matrix extends Component {
         }
 
         return (
-            <div className="Matrix">
+            <div className="Matrix" onKeyUp={this.props.handleKeyPress} tabIndex="0">
                 {content}
             </div>
         )

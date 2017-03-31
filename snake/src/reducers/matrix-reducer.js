@@ -3,13 +3,17 @@
  */
 
 const matrixReducer = (state = [], action) => {
+    let newState;
     switch (action.type) {
         case 'INIT':
-            let newState = [];
+            newState = [];
             for (let i = 0; i < action.height * action.width; ++i) {
                 newState.push({value: 0});
             }
-            console.log(action.height * action.width);
+            return newState;
+        case 'CHANGE':
+            newState = state.slice(0);
+            newState[action.id].value = action.value;
             return newState;
         default:
             return state;
