@@ -2,12 +2,6 @@
  * Created by cuyu on 3/31/17.
  */
 
-import {combineReducers} from 'redux'
-import matrixReducer from './matrix-reducer'
+import snakeReducer from './snake-reducer'
 
-
-let rootReducer = combineReducers({
-    matrix: matrixReducer
-});
-
-export default rootReducer;
+export default snakeReducer;

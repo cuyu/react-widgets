@@ -3,7 +3,7 @@
  */
 import Matrix from '../components/Matrix'
 import {connect} from 'react-redux'
-import {resetMatrix, changeCell} from '../actions'
+import {resetMatrix, moveOn} from '../actions'
 
 const mapStateToProps = (state, ownProps) => {
     return {};
@@ -12,11 +12,11 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         handleReset: () => {
-            dispatch(resetMatrix(ownProps.height, ownProps.width));
+            dispatch(resetMatrix(ownProps.width, ownProps.height, ownProps.snakeLength));
         },
         handleKeyPress: () => {
             console.log('keyPress')
-            dispatch(changeCell(21, 1));
+            dispatch(moveOn());
         }
     };
 };

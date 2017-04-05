@@ -6,10 +6,8 @@ import {connect} from 'react-redux'
 
 
 const mapStateToProps = (state, ownProps) => {
-    // console.log(state)
-    // console.log('mapStateToProps', ownProps.id)
     return {
-        value: state.matrix[ownProps.id].value,
+        value: state.matrix.value[ownProps.id],
     }
 };
 

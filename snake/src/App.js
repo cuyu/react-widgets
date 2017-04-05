@@ -6,7 +6,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <MatrixWrapper height={10} width={10}/>
+                <MatrixWrapper height={10} width={10} snakeLength={4}/>
             </div>
         );
     }
