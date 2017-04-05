@@ -12,10 +12,13 @@ class Matrix extends Component {
         handleKeyPress: PropTypes.func.isRequired,
     };
 
+    componentWillMount() {
+        this.props.handleReset();
+    }
+
     render() {
         // The Matrix should only be rendered once while some Cells may be rendered later.
         console.log('Matrix rendered.');
-        this.props.handleReset();
         let content = [];
         for (let i = 0; i < this.props.height; ++i) {
             let rowContent = [];
@@ -33,6 +36,7 @@ class Matrix extends Component {
         return (
             <div className="Matrix" onKeyUp={this.props.handleKeyPress} tabIndex="0">
                 {content}
+                <button onClick={this.props.handleReset}>Restart</button>
             </div>
         )
     }

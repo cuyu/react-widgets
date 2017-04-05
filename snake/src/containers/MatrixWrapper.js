@@ -3,7 +3,7 @@
  */
 import Matrix from '../components/Matrix'
 import {connect} from 'react-redux'
-import {resetMatrix, moveOn} from '../actions'
+import {resetMatrix, moveOn, changeDirection} from '../actions'
 
 const mapStateToProps = (state, ownProps) => {
     return {};
@@ -14,8 +14,23 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         handleReset: () => {
             dispatch(resetMatrix(ownProps.width, ownProps.height, ownProps.snakeLength));
         },
-        handleKeyPress: () => {
-            console.log('keyPress')
+        handleKeyPress: (event) => {
+            switch (event.keyCode) {
+                case 37:
+                    dispatch(changeDirection('left'));
+                    break;
+                case 38:
+                    dispatch(changeDirection('up'));
+                    break;
+                case 39:
+                    dispatch(changeDirection('right'));
+                    break;
+                case 40:
+                    dispatch(changeDirection('down'));
+                    break;
+                default:
+                    console.log('No effect for this key:', event.keyCode);
+            }
             dispatch(moveOn());
         }
     };
