@@ -2,6 +2,10 @@
  * Created by cuyu on 3/31/17.
  */
 
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 
 function initState(width, height, snakeLength) {
     console.assert(snakeLength <= width, 'The snakeLength should not larger than matrix width.');
@@ -10,6 +14,7 @@ function initState(width, height, snakeLength) {
             value: [],
             width: width,
             height: height,
+            apple: getRandomInt(snakeLength, width * height),
         },
         snake: {
             occupy: [],  // Snake head is the last item of {state.snake.occupy} and tail is the first one
@@ -24,21 +29,27 @@ function initState(width, height, snakeLength) {
         state.matrix.value[i] = 1;
         state.snake.occupy.push(i);
     }
+    state.matrix.value[state.matrix.apple] = 2;
     return state;
 }
 
 
 function snakeMove(state) {
     let newState = snakeGrow(state);
-    // Remove the tail
-    newState.matrix.value[newState.snake.occupy[0]] = 0;
-    newState.snake.occupy = newState.snake.occupy.slice(1);
+    let head = newState.snake.occupy[newState.snake.occupy.length - 1];
+    // Remove the tail if not eat the apple
+    if (head!==newState.matrix.apple) {
+        newState.matrix.value[newState.snake.occupy[0]] = 0;
+        newState.snake.occupy = newState.snake.occupy.slice(1);
+    }
+    else {
+        generateApple(newState);
+    }
     return newState;
 }
 
 
 function snakeGrow(state) {
-    // TODO: Check if snake dead
     let copyState = Object.assign({}, state);
     let head = copyState.snake.occupy[copyState.snake.occupy.length - 1];
     let newHead;
@@ -75,6 +86,16 @@ function snakeGrow(state) {
         copyState.matrix.value[newHead] = 1; // Any better idea to update the matrix automatically in an efficient way?
     }
     return copyState;
+}
+
+
+function generateApple(state) {
+    let appleIndex = getRandomInt(0, state.matrix.width * state.matrix.height - state.snake.occupy.length)
+    while (state.matrix.value[appleIndex] === 1) {
+        appleIndex += 1;
+    }
+    state.matrix.apple = appleIndex;
+    state.matrix.value[appleIndex] = 2;
 }
 
 
