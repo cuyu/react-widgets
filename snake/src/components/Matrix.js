@@ -10,10 +10,20 @@ class Matrix extends Component {
     static propTypes = {
         handleReset: PropTypes.func.isRequired,
         handleKeyPress: PropTypes.func.isRequired,
+        handleSnakeMove: PropTypes.func.isRequired,
     };
 
     componentWillMount() {
         this.props.handleReset();
+    }
+
+    loopSnakeMove() {
+        this.props.handleSnakeMove();
+        setTimeout(this.loopSnakeMove.bind(this), 500);
+    }
+
+    componentDidMount() {
+        this.loopSnakeMove();
     }
 
     render() {

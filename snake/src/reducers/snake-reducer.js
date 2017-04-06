@@ -60,7 +60,6 @@ function snakeGrow(state) {
     }
     if (copyState.snake.direction === 'right' || copyState.snake.direction === 'left') {  // Crash on the boundary
         if (Math.floor(newHead / copyState.matrix.width) !== Math.floor(head / copyState.matrix.width)) {
-            console.log(newHead, head)
             copyState.snake.dead = true;
         }
     }

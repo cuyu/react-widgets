@@ -31,6 +31,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                 default:
                     console.log('No effect for this key:', event.keyCode);
             }
+        },
+        handleSnakeMove: () => {
             dispatch(moveOn());
         }
     };
