@@ -4,6 +4,7 @@
 import React, {Component, PropTypes} from 'react'
 import CellWrapper from '../containers/CellWrapper'
 import './Matrix.css'
+import {DIFFICULTY} from '../constants/game-difficulty'
 
 
 class Matrix extends Component {
@@ -13,17 +14,20 @@ class Matrix extends Component {
         handleSnakeMove: PropTypes.func.isRequired,
     };
 
+    constructor() {
+        super();
+        this.loopSnakeMove = this.loopSnakeMove.bind(this);
+    }
+
     componentWillMount() {
         this.props.handleReset();
     }
 
     loopSnakeMove() {
         this.props.handleSnakeMove();
-        setTimeout(this.loopSnakeMove.bind(this), 500);
-    }
-
-    componentDidMount() {
-        this.loopSnakeMove();
+        if (!this.props.stop) {
+            setTimeout(this.loopSnakeMove, DIFFICULTY[this.props.difficulty]);
+        }
     }
 
     render() {
@@ -46,7 +50,8 @@ class Matrix extends Component {
         return (
             <div className="Matrix" onKeyUp={this.props.handleKeyPress} tabIndex="0">
                 {content}
-                <button onClick={this.props.handleReset}>Restart</button>
+                <button onClick={this.loopSnakeMove}>Start</button>
+                <button onClick={this.props.handleReset}>Try Again</button>
             </div>
         )
     }

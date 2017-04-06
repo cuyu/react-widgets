@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import {resetMatrix, moveOn, changeDirection} from '../actions'
 
 const mapStateToProps = (state, ownProps) => {
-    return {};
+    return {stop: state.snake.dead};  // TODO: use a `stop` state to manage the state.
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

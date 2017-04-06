@@ -3,6 +3,7 @@
  */
 import React, {Component, PropTypes} from 'react'
 import './Cell.css'
+import {COLOR_MAP} from '../constants/color-mapping'
 
 
 class Cell extends Component {
@@ -11,8 +12,9 @@ class Cell extends Component {
     };
 
     render() {
+        let color = COLOR_MAP[this.props.value.toString()];
         return (
-            <div className="Cell" style={{'backgroundColor': this.props.value === 1 ? 'black' : 'white'}}>
+            <div className="Cell" style={{'backgroundColor': color}}>
             </div>
         );
     }
