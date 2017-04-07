@@ -7,7 +7,7 @@ function getRandomInt(min, max) {
 }
 
 
-function initState(width, height, snakeLength) {
+function initState(width, height, snakeLength, difficulty) {
     console.assert(snakeLength <= width, 'The snakeLength should not larger than matrix width.');
     let state = {
         matrix: {
@@ -15,6 +15,7 @@ function initState(width, height, snakeLength) {
             width: width,
             height: height,
             apple: getRandomInt(snakeLength, width * height),
+            difficulty: difficulty,
         },
         snake: {
             occupy: [],  // Snake head is the last item of {state.snake.occupy} and tail is the first one
@@ -38,7 +39,7 @@ function snakeMove(state) {
     let newState = snakeGrow(state);
     let head = newState.snake.occupy[newState.snake.occupy.length - 1];
     // Remove the tail if not eat the apple
-    if (head!==newState.matrix.apple) {
+    if (head !== newState.matrix.apple) {
         newState.matrix.value[newState.snake.occupy[0]] = 0;
         newState.snake.occupy = newState.snake.occupy.slice(1);
     }
@@ -90,7 +91,7 @@ function snakeGrow(state) {
 
 
 function generateApple(state) {
-    let appleIndex = getRandomInt(0, state.matrix.width * state.matrix.height - state.snake.occupy.length)
+    let appleIndex = getRandomInt(0, state.matrix.width * state.matrix.height - state.snake.occupy.length);
     while (state.matrix.value[appleIndex] === 1) {
         appleIndex += 1;
     }
@@ -109,7 +110,7 @@ const snakeReducer = (state = defaultState, action) => {
 
     switch (action.type) {
         case 'INIT':
-            return initState(action.width, action.height, action.snakeLength);
+            return initState(action.width, action.height, action.snakeLength, action.difficulty);
         case 'MOVE_ON':
             return snakeMove(state);
         case 'CHANGE_DIRECTION':

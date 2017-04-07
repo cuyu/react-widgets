@@ -3,15 +3,16 @@
  */
 import Cell from '../components/Cell'
 import {connect} from 'react-redux'
+import {snakeState} from '../selectors'
 
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        value: state.matrix.value[ownProps.id],
+        value: snakeState(state).matrix.value[ownProps.id],
     }
 };
 
 
 const CellWrapper = connect(mapStateToProps)(Cell);
 
-export default CellWrapper
+export default CellWrapper;

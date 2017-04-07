@@ -4,15 +4,23 @@
 import Matrix from '../components/Matrix'
 import {connect} from 'react-redux'
 import {resetMatrix, moveOn, changeDirection} from '../actions'
+import {snakeState} from '../selectors'
+
 
 const mapStateToProps = (state, ownProps) => {
-    return {stop: state.snake.dead};  // TODO: use a `stop` state to manage the state.
+    return {
+        stop: snakeState(state).snake.dead,
+        width: snakeState(state).matrix.width,
+        height: snakeState(state).matrix.height,
+        snakeLength: snakeState(state).matrix.snakeLength,
+        difficulty: snakeState(state).matrix.difficulty,
+    };  // TODO: use a `stop` state to manage the state.
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         handleReset: () => {
-            dispatch(resetMatrix(ownProps.width, ownProps.height, ownProps.snakeLength));
+            dispatch(resetMatrix());
         },
         handleKeyPress: (event) => {
             switch (event.keyCode) {

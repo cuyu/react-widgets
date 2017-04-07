@@ -32,7 +32,7 @@ class Matrix extends Component {
 
     render() {
         // The Matrix should only be rendered once while some Cells may be rendered later.
-        console.log('Matrix rendered.');
+        console.log('Matrix rendered.', this.props);
         let content = [];
         for (let i = 0; i < this.props.height; ++i) {
             let rowContent = [];
@@ -51,7 +51,7 @@ class Matrix extends Component {
             <div className="Matrix" onKeyUp={this.props.handleKeyPress} tabIndex="0">
                 {content}
                 <button onClick={this.loopSnakeMove}>Start</button>
-                <button onClick={this.props.handleReset}>Try Again</button>
+                <button onClick={this.props.handleReset}>Reset</button>
             </div>
         )
     }
