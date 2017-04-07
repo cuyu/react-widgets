@@ -37,7 +37,7 @@ class Matrix extends Component {
         for (let i = 0; i < this.props.height; ++i) {
             let rowContent = [];
             for (let j = 0; j < this.props.width; ++j) {
-                let id = i * this.props.height + j;
+                let id = i * this.props.width + j;
                 rowContent.push(<CellWrapper key={id.toString()} id={id} value={0}/>);
             }
             content.push(
