@@ -14,6 +14,7 @@ function initState(width, height, snakeLength, difficulty) {
             value: [],
             width: width,
             height: height,
+            snakeLength: snakeLength,
             apple: getRandomInt(snakeLength, width * height),
             difficulty: difficulty,
         },
@@ -92,15 +93,18 @@ function snakeGrow(state) {
 
 function generateApple(state) {
     let appleIndex = getRandomInt(0, state.matrix.width * state.matrix.height - state.snake.occupy.length);
-    while (state.matrix.value[appleIndex] === 1) {
-        appleIndex += 1;
+    let emptyIndexes = [];
+    for (let i = 0; i < state.matrix.width * state.matrix.height; ++i) {
+        if (state.matrix.value[i] === 0) {
+            emptyIndexes.push(i);
+        }
     }
-    state.matrix.apple = appleIndex;
-    state.matrix.value[appleIndex] = 2;
+    state.matrix.apple = emptyIndexes[appleIndex];
+    state.matrix.value[state.matrix.apple] = 2;
 }
 
 
-const defaultState = initState(5, 5, 3);
+const defaultState = initState(5, 5, 3, 1);
 
 
 const snakeReducer = (state = defaultState, action) => {
@@ -110,7 +114,7 @@ const snakeReducer = (state = defaultState, action) => {
 
     switch (action.type) {
         case 'INIT':
-            return initState(action.width, action.height, action.snakeLength, action.difficulty);
+            return initState(Number(action.width), Number(action.height), Number(action.snakeLength), Number(action.difficulty));
         case 'MOVE_ON':
             return snakeMove(state);
         case 'CHANGE_DIRECTION':
