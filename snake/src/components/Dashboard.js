@@ -22,7 +22,7 @@ class Dashboard extends Component {
                <label>Snake Length:</label>
                <InputWrapper type="number" min="2" id="snakeLength"/>
                <br/>
-               <label>Score</label>
+               <label>Score:</label>
                <InputWrapper disabled id="score"/>
            </form>
         );

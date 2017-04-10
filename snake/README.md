@@ -1,5 +1,7 @@
 ## Snake Game
 
+Press ⬆️⬇️⬅️️➡️ to MOVE.
+
 These factors can be adjusted dynamically:
 - matrix width
 - matrix height
