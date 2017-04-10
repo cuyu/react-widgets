@@ -4,12 +4,20 @@
 import {cacheInput} from '../actions'
 import BaseInput from '../components/Input'
 import {connect} from 'react-redux'
-import {settingsState} from '../selectors'
+import {settingsState, snakeState} from '../selectors'
 
 
 const mapStateToProps = (state, ownProps) => {
-    return {
-        value: settingsState(state)[ownProps.id].value,
+    // Fixme: better solution
+    if (ownProps.id === 'score') {
+        return {
+            value: snakeState(state).matrix.score,
+        };
+    }
+    else {
+        return {
+            value: settingsState(state)[ownProps.id].value,
+        };
     }
 };
 

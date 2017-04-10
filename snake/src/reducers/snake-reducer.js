@@ -15,8 +15,9 @@ function initState(width, height, snakeLength, difficulty) {
             width: width,
             height: height,
             snakeLength: snakeLength,
-            apple: getRandomInt(snakeLength, width * height),
+            apple: getRandomInt(snakeLength, width * height - 1),
             difficulty: difficulty,
+            score: 0,
         },
         snake: {
             occupy: [],  // Snake head is the last item of {state.snake.occupy} and tail is the first one
@@ -101,6 +102,17 @@ function generateApple(state) {
     }
     state.matrix.apple = emptyIndexes[appleIndex];
     state.matrix.value[state.matrix.apple] = 2;
+    // Update score
+    state.matrix.score = calculateScore(state);
+}
+
+
+function calculateScore(state) {
+    let difficultyFactor = state.matrix.difficulty / 10 + 1;
+    let totalRoom = state.matrix.width * state.matrix.height;
+    let roomFactor = state.snake.occupy.length / totalRoom;
+    let deltaScore = Math.round(roomFactor * 10 * difficultyFactor);
+    return state.matrix.score + Math.max(deltaScore, 1);
 }
 
 
