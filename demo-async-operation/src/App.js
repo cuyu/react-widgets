@@ -1,31 +1,29 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 
 class App extends Component {
-    constructor() {
-        super();
-        this.state = {
-            loading: true,
-            error: null,
-            data: null,
-        }
-    }
+    static propTypes = {
+        loading: PropTypes.bool.isRequired,
+        error: PropTypes.any,
+        data: PropTypes.any,
+        handlePromise: PropTypes.func.isRequired,
+        promise: PropTypes.instanceOf(Promise).isRequired,
+    };
 
     componentDidMount() {
-        this.props.promise.then(
-            value => this.setState({loading: false, data: value.data}),
-            error => this.setState({loading: false, error: error}));
+        this.props.handlePromise();
     }
 
     render() {
-        if (this.state.loading) {
+        if (this.props.loading) {
             return <span>Loading...</span>;
         }
-        else if (this.state.error !== null) {
-            return <span>Error: {this.state.error.message}</span>;
+        else if (this.props.error !== null) {
+            return <span>Error: {this.props.error.message}</span>;
         }
         else {
-            const repos = this.state.data.items;
+            const repos = this.props.data.items;
             const repoList = repos.map(function (repo, index) {
                 return (
                     <li key={index}><a href={repo.html_url}>{repo.name}</a> ({repo.stargazers_count} stars)
