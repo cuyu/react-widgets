@@ -10,25 +10,29 @@ const mapStateToProps = (state, ownProps) => {
     return state;
 };
 
+
+async function asyncCall(dispatch, ownProps) {
+    try {
+        const jsData = await ownProps.promise;
+        dispatch({type: 'UPDATE_DATA', data: jsData.data});
+    }
+    catch (error) {
+        dispatch({type: 'UPDATE_ERROR', error: error});
+    }
+    try {
+        const pyData = await axios.get('https://api.github.com/search/repositories?q=python&sort=stars');
+        dispatch({type: 'UPDATE_DATA', data: pyData.data});
+    }
+    catch (error) {
+        dispatch({type: 'UPDATE_ERROR', error: error});
+    }
+}
+
+
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         handlePromise: () => {
-            ownProps.promise.then(
-                value => {
-                    dispatch({type: 'UPDATE_DATA', data: value.data});
-                    return axios.get('https://api.github.com/search/repositories?q=python&sort=stars');
-                },
-                error => {
-                    dispatch({type: 'UPDATE_ERROR', error: error});
-                }
-            ).then(
-                value => {
-                    dispatch({type: 'UPDATE_DATA', data: value.data});
-                },
-                error => {
-                    dispatch({type: 'UPDATE_ERROR', error: error});
-                }
-            );
+            asyncCall(dispatch, ownProps);
         },
     }
 };
