@@ -7,12 +7,15 @@ class App extends Component {
         loading: PropTypes.bool.isRequired,
         error: PropTypes.any,
         data: PropTypes.any,
-        handlePromise: PropTypes.func.isRequired,
-        promise: PropTypes.instanceOf(Promise).isRequired,
+        input: PropTypes.string.isRequired,
+        validInput: PropTypes.bool.isRequired,
+        category: PropTypes.string.isRequired,
+        handleInputChange: PropTypes.func.isRequired,
+        initPage: PropTypes.func.isRequired,
     };
 
     componentDidMount() {
-        this.props.handlePromise();
+        this.props.initPage();
     }
 
     render() {
@@ -30,9 +33,14 @@ class App extends Component {
                         <br/> {repo.description}</li>
                 );
             });
+            const invalidNote = this.props.validInput? null : <p>Input Invalid!</p>;
             return (
                 <main>
-                    <h1>Most Popular JavaScript Projects in Github</h1>
+                    <h1>Most Popular {this.props.category} Projects in Github</h1>
+                    <div>
+                        Wanna see other projects? <input type="text" onChange={this.props.handleInputChange} value={this.props.input}/>
+                        {invalidNote}
+                    </div>
                     <ol>{repoList}</ol>
                 </main>
             );

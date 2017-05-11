@@ -5,35 +5,46 @@ import {connect} from 'react-redux'
 import axios from 'axios'
 import App from './App'
 
-
 const mapStateToProps = (state, ownProps) => {
     return state;
 };
 
-
-async function asyncCall(dispatch, ownProps) {
+async function getBackend(dispatch, getState) {
+    const state = getState();
     try {
-        const jsData = await ownProps.promise;
-        dispatch({type: 'UPDATE_DATA', data: jsData.data});
-    }
-    catch (error) {
-        dispatch({type: 'UPDATE_ERROR', error: error});
-    }
-    try {
-        const pyData = await axios.get('https://api.github.com/search/repositories?q=python&sort=stars');
-        dispatch({type: 'UPDATE_DATA', data: pyData.data});
+        const response = await axios.get(`https://api.github.com/search/repositories?q=${state.input}&sort=stars`);
+        dispatch({type: 'UPDATE_DATA', data: response.data});
     }
     catch (error) {
         dispatch({type: 'UPDATE_ERROR', error: error});
     }
 }
 
+function initPage() {
+    return function (dispatch, getState) {
+        getBackend(dispatch, getState);
+    }
+}
+
+function handleInputChange(event) {
+    return function asyncCall(dispatch, getState) {
+        dispatch({type: 'INPUT_CHANGE', value: event.target.value});
+        const state = getState();
+        if (state.validInput) {
+            getBackend(dispatch, getState);
+        }
+    }
+}
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        handlePromise: () => {
-            asyncCall(dispatch, ownProps);
+        initPage: () => {
+            dispatch(initPage());
         },
+
+        handleInputChange: (event) => {
+            dispatch(handleInputChange(event));
+        }
     }
 };
 

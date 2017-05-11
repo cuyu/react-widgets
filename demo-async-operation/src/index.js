@@ -1,20 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AppWrapper from './container';
-import axios from 'axios'
 import {Provider} from 'react-redux'
-import {createStore} from 'redux'
+import {createStore, applyMiddleware, compose} from 'redux'
 import rootReducer from './reducer'
+import thunk from 'redux-thunk'
 import './index.css';
 
 
-const store = createStore(rootReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+const store = createStore(
+    rootReducer, /* preloadedState, */ composeEnhancers(applyMiddleware(thunk))
+);
 
 ReactDOM.render(
     (<Provider store={store}>
-        <AppWrapper promise={axios.get('https://api.github.com/search/repositories?q=javascript&sort=stars')}/>
+        <AppWrapper/>
     </Provider>),
     document.getElementById('root')
 );
