@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 
 class Comment extends Component {
@@ -15,16 +15,21 @@ class Comment extends Component {
 
 
 class App extends Component {
+    static propTypes = {
+        handleInputChange: PropTypes.func.isRequired,
+        handleSubmit: PropTypes.func.isRequired,
+    };
+
     render() {
         return (
             <div className="comment-box">
-                <table border="1" className="comment-list">
-                    <Comment content="aaabbb"/>
-                    <Comment content="aaabbb"/>
+                <table className="comment-list">
+                    {this.props.comments.map((item) => <Comment content={item}/>)}
                 </table>
-                <textarea cols="40" rows="5" className="text-area"></textarea>
+                <textarea cols="40" rows="5" className="text-area" onChange={this.props.handleInputChange}
+                          value={this.props.input}></textarea>
                 <br/>
-                <button>Add Comment</button>
+                <button onClick={this.props.handleSubmit}>Add Comment</button>
             </div>
         );
     }
