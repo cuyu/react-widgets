@@ -4,11 +4,18 @@ import React, {Component, PropTypes} from 'react';
 class Comment extends Component {
     render() {
         return (
-            <tr>
-                <td className="comment">
-                    {this.props.content}
-                </td>
-            </tr>
+            <table className="comment">
+                <tr>
+                    <th>
+                        {this.props.time}
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        {this.props.content}
+                    </td>
+                </tr>
+            </table>
         );
     }
 }
@@ -23,9 +30,7 @@ class App extends Component {
     render() {
         return (
             <div className="comment-box">
-                <table className="comment-list">
-                    {this.props.comments.map((item) => <Comment content={item}/>)}
-                </table>
+                {this.props.comments.map((item) => <Comment content={item.comment} time={item.time} />)}
                 <textarea cols="40" rows="5" className="text-area" onChange={this.props.handleInputChange}
                           value={this.props.input}></textarea>
                 <br/>

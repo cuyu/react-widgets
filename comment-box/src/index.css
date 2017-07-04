@@ -11,10 +11,16 @@ body {
 .comment {
     height: 2rem;
     width: 300px;
+    margin-bottom: 10px;
 }
 
-table tr td {
+table tr {
     border: solid 1px gray;
+}
+
+table tr th {
+    font-size: small;
+    color: gray;
 }
 
 table {
