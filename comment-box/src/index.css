@@ -27,6 +27,10 @@ table tr th {
     color: gray;
 }
 
+table tr td {
+    word-break: break-all;  /* Break the long sentence into several lines */
+}
+
 table {
     border-collapse: collapse;
 }
