@@ -14,6 +14,10 @@ body {
     margin-bottom: 10px;
 }
 
+.comment-button {
+    font-size: x-small;
+}
+
 table tr {
     border: solid 1px gray;
 }

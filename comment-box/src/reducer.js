@@ -35,6 +35,18 @@ export default function reducer(state = _defaultState, action) {
                 input: action.value,
             };
 
+        case 'DELETE_COMMENT':
+            let deletedList = [];
+            for (let i = 0; i < state.comments.length; ++i) {
+                if (i !== action.index) {
+                    deletedList.push(state.comments[i]);
+                }
+            }
+            return {
+                ...state,
+                comments: deletedList,
+            };
+
         default:
             return state;
     }
