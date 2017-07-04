@@ -24,6 +24,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                 dispatch({type: 'DELETE_COMMENT', index: number});
             }
         },
+
+        handleCollapse: (event) => {
+            event.preventDefault();
+            dispatch({type: 'COLLAPSE_COMMENT',});
+        },
     }
 };
 

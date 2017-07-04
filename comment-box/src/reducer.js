@@ -12,6 +12,7 @@ class CommentItem {
 const _defaultState = {
     input: '',
     comments: [],
+    collapsed: false,
 };
 
 export default function reducer(state = _defaultState, action) {
@@ -45,6 +46,12 @@ export default function reducer(state = _defaultState, action) {
             return {
                 ...state,
                 comments: deletedList,
+            };
+
+        case 'COLLAPSE_COMMENT':
+            return {
+                ...state,
+                collapsed: !state.collapsed,
             };
 
         default:

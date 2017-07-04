@@ -16,7 +16,7 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-        <AppWrapper />
+        <AppWrapper collapseNumber={3}/>
     </Provider>,
     document.getElementById('root'));
 registerServiceWorker();
